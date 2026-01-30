@@ -1,0 +1,178 @@
+{
+  "identity": {
+    "name": "E1",
+    "archetype": "The Corporate Precisionist",
+    "mission": "Create a high-density, operationally focused flight booking terminal that balances corporate professionalism with Swiss-style typographic clarity. No fluff, just function."
+  },
+  "typography": {
+    "fonts": {
+      "headings": {
+        "family": "Manrope",
+        "weights": ["600", "700", "800"],
+        "usage": "Page titles, section headers, modal titles. Use tight tracking (-0.02em)."
+      },
+      "body": {
+        "family": "Inter",
+        "weights": ["400", "500"],
+        "usage": "General UI text, labels, descriptions."
+      },
+      "data": {
+        "family": "JetBrains Mono",
+        "weights": ["400", "500"],
+        "usage": "PNR numbers, Ticket Numbers, Currency values, Date/Time stamps. This adds the 'Terminal' aesthetic."
+      }
+    },
+    "scale": {
+      "h1": "text-3xl font-bold tracking-tight text-slate-900",
+      "h2": "text-xl font-semibold tracking-tight text-slate-900",
+      "h3": "text-lg font-semibold text-slate-800",
+      "body": "text-sm text-slate-600 leading-relaxed",
+      "small": "text-xs text-slate-500 font-medium",
+      "data_value": "font-mono text-sm text-slate-900"
+    }
+  },
+  "colors": {
+    "palette": {
+      "primary": {
+        "DEFAULT": "#0F172A",
+        "foreground": "#F8FAFC",
+        "hover": "#1E293B",
+        "description": "Deep Navy - Authority and Trust"
+      },
+      "accent": {
+        "DEFAULT": "#2563EB",
+        "foreground": "#FFFFFF",
+        "hover": "#1D4ED8",
+        "description": "Electric Blue - Primary Actions (Search, Book)"
+      },
+      "background": {
+        "DEFAULT": "#FFFFFF",
+        "subtle": "#F8FAFC",
+        "sidebar": "#0F172A"
+      },
+      "status": {
+        "success": "#10B981",
+        "warning": "#F59E0B",
+        "error": "#EF4444",
+        "info": "#3B82F6"
+      },
+      "border": {
+        "DEFAULT": "#E2E8F0",
+        "subtle": "#F1F5F9"
+      }
+    },
+    "usage_rules": [
+      "Never use gradients for backgrounds. Use solid, flat colors.",
+      "Sidebar must be dark (#0F172A) with white text to create a strong anchor.",
+      "Data tables must have alternating row colors (zebra striping) using 'bg-slate-50/50' for readability.",
+      "Use 'text-slate-400' for secondary labels, never pure gray."
+    ]
+  },
+  "layout": {
+    "grid_system": "The Bento Grid - Mode B (High Density)",
+    "spacing": {
+      "container_padding": "p-6 md:p-8",
+      "gap": "gap-4 md:gap-6",
+      "internal_padding": "p-4"
+    },
+    "structure": {
+      "sidebar": "Fixed width (250px), dark theme, full height.",
+      "header": "Sticky top, white background, bottom border (border-slate-200).",
+      "main": "bg-slate-50 min-h-screen p-6"
+    },
+    "rules": [
+      "Avoid 'floating cards' with heavy shadows. Use 'Border-First' design: 1px solid borders (border-slate-200) with minimal or no shadow.",
+      "Dashboard widgets should fill the grid completely (h-full).",
+      "Forms should be sectioned with clear headings and dividers."
+    ]
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 rounded-md font-medium transition-colors",
+      "secondary": "bg-white border border-slate-200 text-slate-900 hover:bg-slate-50 h-10 px-4 py-2 rounded-md font-medium transition-colors",
+      "ghost": "hover:bg-slate-100 text-slate-700 hover:text-slate-900 h-10 px-4 rounded-md"
+    },
+    "cards": {
+      "style": "bg-white border border-slate-200 rounded-lg shadow-sm",
+      "header": "p-4 border-b border-slate-100 flex justify-between items-center",
+      "content": "p-4"
+    },
+    "inputs": {
+      "style": "flex h-10 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+    },
+    "tables": {
+      "style": "w-full caption-bottom text-sm",
+      "header": "border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted",
+      "row": "border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted",
+      "cell": "p-4 align-middle [&:has([role=checkbox])]:pr-0"
+    }
+  },
+  "visual_enhancers": {
+    "micro_interactions": [
+      "Hover states on table rows (bg-slate-50).",
+      "Subtle scale effect on primary buttons (active:scale-95).",
+      "Smooth transitions on sidebar links."
+    ],
+    "textures": [
+      "No noise or grain. Keep it clean and digital.",
+      "Use 'border-collapse' look for data grids to emphasize structure."
+    ],
+    "icons": {
+      "library": "lucide-react",
+      "style": "Stroke width 1.5px (thin and precise). Size 16px or 18px for density."
+    }
+  },
+  "media": {
+    "images": {
+      "login_background": {
+        "url": "https://images.unsplash.com/photo-1745689226178-a99780b5151b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBjb3Jwb3JhdGUlMjBhcmNoaXRlY3R1cmUlMjBhYnN0cmFjdHxlbnwwfHx8fDE3Njk3NjY1Njl8MA&ixlib=rb-4.1.0&q=85",
+        "alt": "Modern corporate architecture abstract",
+        "usage": "Full screen background for Login Page with a dark overlay (bg-slate-900/80)."
+      },
+      "avatars": [
+        {
+          "url": "https://images.unsplash.com/photo-1581065178047-8ee15951ede6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAxODF8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBidXNpbmVzcyUyMHBvcnRyYWl0fGVufDB8fHx8MTc2OTc2NjU3Mnww&ixlib=rb-4.1.0&q=85",
+          "alt": "User Avatar 1"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1758518727888-ffa196002e59?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAxODF8MHwxfHNlYXJjaHwzfHxwcm9mZXNzaW9uYWwlMjBidXNpbmVzcyUyMHBvcnRyYWl0fGVufDB8fHx8MTc2OTc2NjU3Mnww&ixlib=rb-4.1.0&q=85",
+          "alt": "User Avatar 2"
+        }
+      ]
+    }
+  },
+  "accessibility": {
+    "rules": [
+      "Ensure 4.5:1 contrast ratio for all text.",
+      "Focus rings must be visible (ring-2 ring-offset-2 ring-blue-500).",
+      "All inputs must have associated labels.",
+      "Use aria-label for icon-only buttons."
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Implement the 'Sidebar Layout' as the main wrapper for the dashboard.",
+    "Use 'TanStack Table' for the Booking List and Reports. This is non-negotiable for performance.",
+    "Use 'Recharts' for the Dashboard charts (Simple Bar and Line charts only).",
+    "For the Booking Form, use a 'Wizard' or 'Tabs' approach to break down the complexity (Passenger Details -> Flight Details -> Payment).",
+    "Ensure the 'PNR' and 'Status' fields are visually distinct in lists (use Badges).",
+    "Use the provided image URLs for the login page and mock user profiles.",
+    "Do not use 'Inter' for Headings. Import 'Manrope' from Google Fonts.",
+    "Add 'data-testid' to all interactive elements."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy",
+    "Use glass-morphism effects with backdrop filters (12-24px blur) ONLY for the sticky header.",
+    "You MUST NOT apply universal transition. Eg: transition: all. This results in breaking transforms.",
+    "You MUST NOT center align the app container.",
+    "Always use modern button styles like pill-shaped, or sharp button with interaction animations.",
+    "NEVER: use AI assistant Emoji characters like 🤖🧠 etc for icons.",
+    "Every interaction needs micro-animations - hover states, transitions.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "Main agent relies on these image URLs. Missing categories = main agent will use placeholder text which is FORBIDDEN",
+    "Components MUST use named exports.",
+    "Pages MUST use default exports.",
+    "Use 'sonner' for toasts."
+  ]
+}
