@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { DashboardLayout } from '../components/DashboardLayout';
 import axios from '../utils/axios';
@@ -14,7 +14,7 @@ import {
 } from '../utils/helpers';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { Card, CardContent } from '../components/ui/card';
 import { CheckCircle2 } from 'lucide-react';
 
 export default function BookingDetailPage() {
@@ -24,30 +24,35 @@ export default function BookingDetailPage() {
   const [booking, setBooking] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // ✅ MUST be defined before useEffect
-  const fetchBooking = useCallback(async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(`/bookings/${id}`);
-      setBooking(response.data);
-    } catch (error) {
-      toast.error('Error loading booking');
-      navigate('/bookings');
-    } finally {
-      setLoading(false);
-    }
+  // ✅ ESLint-safe: function lives INSIDE useEffect
+  useEffect(() => {
+    const fetchBooking = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(`/bookings/${id}`);
+        setBooking(response.data);
+      } catch (error) {
+        toast.error('Error loading booking');
+        navigate('/bookings');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBooking();
   }, [id, navigate]);
 
-  // ✅ Correct dependency
-  useEffect(() => {
-    fetchBooking();
-  }, [fetchBooking]);
+  // simple refetch helper (NO hooks involved)
+  const refetchBooking = async () => {
+    const response = await axios.get(`/bookings/${id}`);
+    setBooking(response.data);
+  };
 
   const handleSubmit = async () => {
     try {
       await axios.put(`/bookings/${id}/submit`);
       toast.success('Booking submitted for verification');
-      fetchBooking();
+      await refetchBooking();
     } catch (error) {
       toast.error(error.response?.data?.detail || 'Error submitting booking');
     }
@@ -57,7 +62,7 @@ export default function BookingDetailPage() {
     try {
       await axios.put(`/bookings/${id}/verify-account`);
       toast.success('Booking verified by Account');
-      fetchBooking();
+      await refetchBooking();
     } catch (error) {
       toast.error(error.response?.data?.detail || 'Error verifying booking');
     }
@@ -67,7 +72,7 @@ export default function BookingDetailPage() {
     try {
       await axios.put(`/bookings/${id}/verify-admin`);
       toast.success('Booking verified by Admin');
-      fetchBooking();
+      await refetchBooking();
     } catch (error) {
       toast.error(error.response?.data?.detail || 'Error verifying booking');
     }
