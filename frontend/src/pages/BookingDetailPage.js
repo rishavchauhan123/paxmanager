@@ -24,7 +24,9 @@ export default function BookingDetailPage() {
   const [booking, setBooking] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // ✅ MUST be defined before useEffect
   const fetchBooking = useCallback(async () => {
+    setLoading(true);
     try {
       const response = await axios.get(`/bookings/${id}`);
       setBooking(response.data);
@@ -36,6 +38,7 @@ export default function BookingDetailPage() {
     }
   }, [id, navigate]);
 
+  // ✅ Correct dependency
   useEffect(() => {
     fetchBooking();
   }, [fetchBooking]);
@@ -86,7 +89,6 @@ export default function BookingDetailPage() {
   return (
     <DashboardLayout>
       <div className="space-y-6 max-w-5xl mx-auto">
-        {/* Header */}
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-slate-900 tracking-tight">
@@ -101,7 +103,6 @@ export default function BookingDetailPage() {
           </Badge>
         </div>
 
-        {/* Actions */}
         <Card>
           <CardContent className="pt-6">
             <div className="flex gap-4">
@@ -129,8 +130,6 @@ export default function BookingDetailPage() {
             </div>
           </CardContent>
         </Card>
-
-        {/* rest of your JSX remains unchanged */}
       </div>
     </DashboardLayout>
   );
