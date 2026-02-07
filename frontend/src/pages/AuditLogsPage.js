@@ -4,25 +4,26 @@ import axios from '../utils/axios';
 import { formatDateTime } from '../utils/helpers';
 import { Card } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
+import { logError } from '../lib/logger';
 
 export default function AuditLogsPage() {
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const fetchLogs = async () => {
+      try {
+        const response = await axios.get('/audit-logs');
+        setLogs(response.data);
+      } catch (error) {
+        logError('Error loading audit logs:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchLogs();
   }, []);
-
-  const fetchLogs = async () => {
-    try {
-      const response = await axios.get('/audit-logs');
-      setLogs(response.data);
-    } catch (error) {
-      console.error('Error loading audit logs:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   if (loading) {
     return (

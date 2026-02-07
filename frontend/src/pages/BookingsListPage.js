@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { DashboardLayout } from '../components/DashboardLayout';
 import axios from '../utils/axios';
 import { useAuth } from '../context/AuthContext';
 import { formatCurrency, formatDateTime, getStatusColor, getStatusLabel } from '../utils/helpers';
+import { logError } from '../lib/logger';
 import { Plus, Search, Eye } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
@@ -17,20 +18,20 @@ export default function BookingsListPage() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
 
-  useEffect(() => {
-    fetchBookings();
-  }, []);
-
-  const fetchBookings = async () => {
+  const fetchBookings = useCallback(async () => {
     try {
       const response = await axios.get('/bookings');
       setBookings(response.data);
     } catch (error) {
-      console.error('Error fetching bookings:', error);
+      logError('Error fetching bookings:', error);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchBookings();
+  }, [fetchBookings]);
 
   const handleSearch = async () => {
     if (!searchTerm.trim()) {
@@ -42,7 +43,7 @@ export default function BookingsListPage() {
       const response = await axios.get(`/bookings/search/${searchTerm}`);
       setBookings(response.data);
     } catch (error) {
-      console.error('Error searching bookings:', error);
+      logError('Error searching bookings:', error);
     }
   };
 

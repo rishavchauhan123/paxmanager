@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Download } from 'lucide-react';
+import { logError } from '../lib/logger';
 
 export default function ReportsPage() {
   const [loading, setLoading] = useState(false);
@@ -17,17 +18,17 @@ export default function ReportsPage() {
   const [outstandingBalance, setOutstandingBalance] = useState([]);
 
   useEffect(() => {
+    const fetchOutstandingBalance = async () => {
+      try {
+        const response = await axios.get('/reports/outstanding-balance');
+        setOutstandingBalance(response.data);
+      } catch (error) {
+        logError('Error fetching outstanding balance:', error);
+      }
+    };
+
     fetchOutstandingBalance();
   }, []);
-
-  const fetchOutstandingBalance = async () => {
-    try {
-      const response = await axios.get('/reports/outstanding-balance');
-      setOutstandingBalance(response.data);
-    } catch (error) {
-      console.error('Error fetching outstanding balance:', error);
-    }
-  };
 
   const handleDownloadPDF = async () => {
     setLoading(true);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { DashboardLayout } from '../components/DashboardLayout';
 import axios from '../utils/axios';
 import { toast } from 'sonner';
@@ -22,11 +22,7 @@ export default function UsersPage() {
     role: 'agent1',
   });
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     try {
       const response = await axios.get('/users');
       setUsers(response.data);
@@ -35,7 +31,11 @@ export default function UsersPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

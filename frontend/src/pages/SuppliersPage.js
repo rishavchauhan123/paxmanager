@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { DashboardLayout } from '../components/DashboardLayout';
 import axios from '../utils/axios';
 import { toast } from 'sonner';
@@ -15,11 +15,7 @@ export default function SuppliersPage() {
   const [showDialog, setShowDialog] = useState(false);
   const [formData, setFormData] = useState({ name: '', contact_info: '' });
 
-  useEffect(() => {
-    fetchSuppliers();
-  }, []);
-
-  const fetchSuppliers = async () => {
+  const fetchSuppliers = useCallback(async () => {
     try {
       const response = await axios.get('/suppliers');
       setSuppliers(response.data);
@@ -28,7 +24,11 @@ export default function SuppliersPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchSuppliers();
+  }, [fetchSuppliers]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

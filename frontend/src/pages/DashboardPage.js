@@ -12,6 +12,7 @@ import {
   AlertCircle,
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { logError } from '../lib/logger';
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -19,19 +20,19 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await axios.get('/dashboard/stats');
+        setStats(response.data);
+      } catch (error) {
+        logError('Error fetching stats:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchStats();
   }, []);
-
-  const fetchStats = async () => {
-    try {
-      const response = await axios.get('/dashboard/stats');
-      setStats(response.data);
-    } catch (error) {
-      console.error('Error fetching stats:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   if (loading) {
     return (
