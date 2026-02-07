@@ -24,7 +24,6 @@ export default function BookingDetailPage() {
   const [booking, setBooking] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // ✅ ESLint-safe: function lives INSIDE useEffect
   useEffect(() => {
     const fetchBooking = async () => {
       setLoading(true);
@@ -40,7 +39,8 @@ export default function BookingDetailPage() {
     };
 
     fetchBooking();
-  }, [id, navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, navigate, toast]);
 
   // simple refetch helper (NO hooks involved)
   const refetchBooking = async () => {
